@@ -1,28 +1,42 @@
-# Peer Project Collaboration Platform - Phase 1
+# Peer Project Collaboration Platform
 
-**Developer:** Syed Irfan Raza
-**Track:** Intermediate Track - ZeroToShip Summer Activity 2026
-**Domain:** Database Management System 
+**Developer:** Syed Irfan Raza  
+**Track:** Intermediate Track - ZeroToShip Summer Activity 2026  
+**Domain:** Database Management System  
 
-## Overview
-This repository contains the foundational relational database schemas for the Peer Project Collaboration Platform. The project serves as a digital workspace directory connecting students across campus for engineering and computing projects based on specific technical skill requirements.
+---
 
-## Database Architecture
-The backend is designed using SQLite with three core tables:
+## 📖 Overview
+The **Peer Project Collaboration Platform** is a centralized digital workspace designed to connect university students across engineering and computing departments. It acts as a talent-matching ecosystem where creators can post project ideas, specify required technical skills, and allow peers to instantly apply, solving the campus collaboration gap.
 
-1. **Users Table:** Stores user profiles, department information, and technical skills (stored as a comma-separated array).
-2. **Projects Table:** Stores project postings, descriptions, required skill tags, and tracks open/closed status. Linked to the Users table via a `creator_id` foreign key.
-3. **Applications Table:** A bridge table linking applicants (Users) to specific Projects, tracking the application status (Pending, Approved, Rejected).
+## 🛠️ Technology Stack
+* **Backend Engine:** Python, Flask
+* **Database:** SQLite3
+* **Security:** Werkzeug (Password Cryptography), Flask Sessions
 
-## Repository Structure
-- `db_setup.sql`: Contains the complete SQL data definition language (DDL) for creating the tables and constraints.
-- `.gitignore`: Configured for Python/Flask environments and SQLite database exclusions.
-- `models/`: Directory established for upcoming Phase 2 ORM models.
-## Phase 2: Endpoint Architectures & Security
+---
 
-In Phase 2, the static database was integrated with a dynamic Python Flask backend. The core focus of this phase was establishing secure authentication and route authorization.
+## 🚀 Project Progression
 
-**Key Features Implemented:**
-*   **Authentication Engine:** Built `/register` and `/login` routes.
-*   **Password Cryptography:** Implemented `werkzeug.security` to hash all user passwords before database insertion, preventing plaintext credential storage.
-*   **Data Integrity Guards:** Created a custom `@login_required` decorator and implemented session-based verification on the `/project/<id>/edit` route to ensure only the original creator of a project can modify it.
+### Phase 1: Database Architecture
+Established the foundational relational database schemas using SQLite.
+* **Users Table:** Stores user profiles, department information, and technical skills (comma-separated arrays).
+* **Projects Table:** Stores project postings, descriptions, required skill tags, and tracks open/closed status. Linked to the Users table via a `creator_id` foreign key.
+* **Applications Table:** A bridge table linking applicants (Users) to specific Projects, tracking the application status (Pending, Approved, Rejected).
+
+### Phase 2: Endpoint Architectures & Security
+Integrated the static database with a dynamic Python Flask backend, focusing on secure authentication and route authorization.
+* **Authentication Engine:** Built functional `/register`, `/login`, and `/logout` API endpoints.
+* **Password Cryptography:** Implemented `werkzeug.security` to hash all user passwords before database insertion, completely preventing plaintext credential storage.
+* **Data Integrity Guards:** Created a custom `@login_required` decorator and implemented strict session-based verification. Ensures only the original creator of a project has the authority to edit or modify it via the `/project/<id>/edit` route.
+
+---
+
+## 📂 Repository Structure
+```text
+.
+├── app.py             # Main Flask backend server and API routes
+├── init_db.py         # Python script to initialize the SQLite database
+├── db_setup.sql       # SQL Data Definition Language (DDL) for tables
+├── README.md          # Project documentation
+└── .gitignore         # Configured for Python/Flask environments
