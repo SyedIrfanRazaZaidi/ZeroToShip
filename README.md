@@ -18,3 +18,11 @@ The backend is designed using SQLite with three core tables:
 - `db_setup.sql`: Contains the complete SQL data definition language (DDL) for creating the tables and constraints.
 - `.gitignore`: Configured for Python/Flask environments and SQLite database exclusions.
 - `models/`: Directory established for upcoming Phase 2 ORM models.
+## Phase 2: Endpoint Architectures & Security
+
+In Phase 2, the static database was integrated with a dynamic Python Flask backend. The core focus of this phase was establishing secure authentication and route authorization.
+
+**Key Features Implemented:**
+*   **Authentication Engine:** Built `/register` and `/login` routes.
+*   **Password Cryptography:** Implemented `werkzeug.security` to hash all user passwords before database insertion, preventing plaintext credential storage.
+*   **Data Integrity Guards:** Created a custom `@login_required` decorator and implemented session-based verification on the `/project/<id>/edit` route to ensure only the original creator of a project can modify it.
