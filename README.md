@@ -10,7 +10,7 @@
 The **Peer Project Collaboration Platform** is a centralized digital workspace designed to connect university students across engineering and computing departments. It acts as a talent-matching ecosystem where creators can post project ideas, specify required technical skills, and allow peers to instantly apply, solving the campus collaboration gap.
 
 ## 🛠️ Technology Stack
-* **Backend Engine:** Python, Flask
+* **Backend Engine:** Python, Flask, RESTful API
 * **Database:** SQLite3
 * **Security:** Werkzeug (Password Cryptography), Flask Sessions
 
@@ -20,22 +20,28 @@ The **Peer Project Collaboration Platform** is a centralized digital workspace d
 
 ### Phase 1: Database Architecture
 Established the foundational relational database schemas using SQLite.
-* **Users Table:** Stores user profiles, department information, and technical skills (comma-separated arrays).
-* **Projects Table:** Stores project postings, descriptions, required skill tags, and tracks open/closed status. Linked to the Users table via a `creator_id` foreign key.
-* **Applications Table:** A bridge table linking applicants (Users) to specific Projects, tracking the application status (Pending, Approved, Rejected).
+* **Users Table:** Stores user profiles, department information, and technical skills.
+* **Projects Table:** Stores project postings, descriptions, required skill tags, and tracks open/closed status. 
+* **Applications Table:** A bridge table linking applicants (Users) to specific Projects.
 
 ### Phase 2: Endpoint Architectures & Security
-Integrated the static database with a dynamic Python Flask backend, focusing on secure authentication and route authorization.
-* **Authentication Engine:** Built functional `/register`, `/login`, and `/logout` API endpoints.
-* **Password Cryptography:** Implemented `werkzeug.security` to hash all user passwords before database insertion, completely preventing plaintext credential storage.
-* **Data Integrity Guards:** Created a custom `@login_required` decorator and implemented strict session-based verification. Ensures only the original creator of a project has the authority to edit or modify it via the `/project/<id>/edit` route.
+Integrated the static database with a dynamic backend, focusing on secure authentication and route authorization.
+* **Authentication Engine:** Built functional `/register`, `/login`, and `/logout` endpoints.
+* **Password Cryptography:** Implemented `werkzeug.security` to hash all user passwords before database insertion.
+* **Data Integrity Guards:** Created a custom `@login_required` decorator ensuring only the original creator of a project has the authority to edit or modify it.
+
+### Phase 3: RESTful API Routing & Data Filtering
+Developed the headless API routing points to enable seamless frontend-backend communication.
+* **CRUD API Handlers:** Engineered HTTP endpoints (`POST`, `GET`, `DELETE`) for the `/api/projects` route to create, read, and manage project postings.
+* **Skill Search Routing:** Built parameterized filtering capabilities (e.g., `GET /api/projects?skill=Flask`) to scan the database and instantly return tailored project matches.
+* **Application Queues:** Created the `/api/apply` handler that safely logs student application entries directly into the database's bridge table.
 
 ---
 
 ## 📂 Repository Structure
 ```text
 .
-├── app.py             # Main Flask backend server and API routes
+├── app.py             # Main Flask backend engine, security guards, and API routes
 ├── init_db.py         # Python script to initialize the SQLite database
 ├── db_setup.sql       # SQL Data Definition Language (DDL) for tables
 ├── README.md          # Project documentation
