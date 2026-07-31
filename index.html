@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peer Project Collaboration | Marketplace</title>
+    <!-- Tailwind CSS via CDN for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">CIS Project Hub</h1>
+            <div class="space-x-4">
+                <a href="index.html" class="hover:text-blue-200 underline">Marketplace</a>
+                <a href="dashboard.html" class="hover:text-blue-200">My Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Marketplace Content -->
+    <main class="container mx-auto p-6 mt-6">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800">Discovery Marketplace</h2>
+            <input type="text" placeholder="Search skills (e.g. Flask, React)..." class="p-2 border border-gray-300 rounded-md w-64">
+        </div>
+
+        <!-- CSS Grid Layout for Project Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Mock Project Card 1 -->
+            <div class="bg-white rounded-lg shadow-md p-6 border border-gray-100 hover:shadow-lg transition">
+                <h3 class="text-xl font-bold mb-2">Automated Exam Grader</h3>
+                <p class="text-gray-600 mb-4 h-20 overflow-hidden">Looking for a backend developer to help build an OpenCV script that grades multiple-choice bubble sheets automatically.</p>
+                <div class="flex space-x-2 mb-4">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Python</span>
+                    <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">OpenCV</span>
+                </div>
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">Apply Now</button>
+            </div>
+
+            <!-- Mock Project Card 2 -->
+            <div class="bg-white rounded-lg shadow-md p-6 border border-gray-100 hover:shadow-lg transition">
+                <h3 class="text-xl font-bold mb-2">Campus Navigation App</h3>
+                <p class="text-gray-600 mb-4 h-20 overflow-hidden">Need a frontend specialist to build interactive maps for the NEDUET campus using React Native.</p>
+                <div class="flex space-x-2 mb-4">
+                    <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded">JavaScript</span>
+                    <span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2.5 py-0.5 rounded">React Native</span>
+                </div>
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">Apply Now</button>
+            </div>
+
+            <!-- Mock Project Card 3 -->
+            <div class="bg-white rounded-lg shadow-md p-6 border border-gray-100 hover:shadow-lg transition">
+                <h3 class="text-xl font-bold mb-2">Student Database Security</h3>
+                <p class="text-gray-600 mb-4 h-20 overflow-hidden">Seeking a cybersecurity enthusiast to pen-test and secure our student database architecture against SQL injection.</p>
+                <div class="flex space-x-2 mb-4">
+                    <span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded">SQL</span>
+                    <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded">Cybersecurity</span>
+                </div>
+                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">Apply Now</button>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>
