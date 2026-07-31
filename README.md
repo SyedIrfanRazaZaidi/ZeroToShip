@@ -10,6 +10,7 @@
 The **Peer Project Collaboration Platform** is a centralized digital workspace designed to connect university students across engineering and computing departments. It acts as a talent-matching ecosystem where creators can post project ideas, specify required technical skills, and allow peers to instantly apply, solving the campus collaboration gap.
 
 ## 🛠️ Technology Stack
+* **Frontend UI:** HTML5, Tailwind CSS (Utility-first styling)
 * **Backend Engine:** Python, Flask, RESTful API
 * **Database:** SQLite3
 * **Security:** Werkzeug (Password Cryptography), Flask Sessions
@@ -36,6 +37,11 @@ Developed the headless API routing points to enable seamless frontend-backend co
 * **Skill Search Routing:** Built parameterized filtering capabilities (e.g., `GET /api/projects?skill=Flask`) to scan the database and instantly return tailored project matches.
 * **Application Queues:** Created the `/api/apply` handler that safely logs student application entries directly into the database's bridge table.
 
+### Phase 4: Static User Interface (UI)
+Developed the frontend presentation layer to establish the platform's visual architecture and user experience.
+* **Discovery Marketplace:** Built a responsive CSS Grid layout (`index.html`) featuring project cards with titles, descriptions, and colored skill tag badges.
+* **Project Manager Dashboard:** Designed a dedicated creator view (`dashboard.html`) equipped with applicant tracking lists and actionable accept/deny interface assets.
+
 ---
 
 ## 📂 Repository Structure
@@ -44,5 +50,7 @@ Developed the headless API routing points to enable seamless frontend-backend co
 ├── app.py             # Main Flask backend engine, security guards, and API routes
 ├── init_db.py         # Python script to initialize the SQLite database
 ├── db_setup.sql       # SQL Data Definition Language (DDL) for tables
+├── index.html         # Frontend Marketplace UI (Tailwind CSS)
+├── dashboard.html     # Frontend Creator Dashboard UI (Tailwind CSS)
 ├── README.md          # Project documentation
 └── .gitignore         # Configured for Python/Flask environments
