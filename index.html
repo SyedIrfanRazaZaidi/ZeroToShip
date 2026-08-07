@@ -3,85 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peer Project Collaboration | Marketplace</title>
+    <title>CIS Hub | Professional Collaboration</title>
+    <!-- Professional Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .modal-enter { animation: fadeIn 0.2s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-slate-50 text-slate-800 min-h-screen pb-12">
 
-    <nav class="bg-blue-600 text-white p-4 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold">CIS Project Hub</h1>
-            <div class="space-x-4 flex items-center">
-                <a href="/" class="hover:text-blue-200 underline">Marketplace</a>
-                <a href="/dashboard.html" class="hover:text-blue-200">My Dashboard</a>
-                <button onclick="testLogin()" class="bg-blue-800 hover:bg-blue-900 px-3 py-1 rounded text-sm font-bold ml-4">Quick Login</button>
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3"></div>
+
+    <!-- Navigation -->
+    <nav class="bg-indigo-900 text-white shadow-xl sticky top-0 z-40 border-b border-indigo-800">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-extrabold tracking-tight">CIS <span class="text-indigo-400 font-light">Hub</span></h1>
+            <div id="nav-buttons" class="space-x-4 flex items-center">
+                <!-- Dynamically populated via JS -->
             </div>
         </div>
     </nav>
 
-    <main class="container mx-auto p-6 mt-6">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-3xl font-bold text-gray-800">Discovery Marketplace</h2>
-            <input type="text" id="search-input" placeholder="Search skills (e.g. Flask)..." class="p-2 border border-gray-300 rounded-md w-64">
+    <!-- Header Section -->
+    <header class="container mx-auto px-6 mt-12 mb-10 max-w-6xl">
+        <div class="flex flex-col md:flex-row justify-between items-center bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+            <div class="mb-6 md:mb-0">
+                <h2 class="text-4xl font-extrabold text-slate-900 mb-2">Discovery Marketplace</h2>
+                <p class="text-slate-500 text-lg">Connect with peers, combine skills, and build the future.</p>
+            </div>
+            <div class="relative w-full md:w-96">
+                <svg class="absolute left-4 top-3.5 h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <input type="text" id="search-input" placeholder="Search required skills..." class="w-full pl-12 pr-4 py-3 bg-slate-50 rounded-xl border border-slate-200 focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none transition font-medium">
+            </div>
         </div>
+    </header>
 
-        <!-- The grid will now populate from the database automatically -->
-        <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <!-- Project Grid -->
+    <main class="container mx-auto px-6 max-w-6xl">
+        <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamically populated via JS -->
+        </div>
     </main>
 
+    <!-- MODALS -->
+    <!-- Login Modal -->
+    <div id="modal-login" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-[400px] modal-enter relative">
+            <button onclick="closeModal('modal-login')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">✕</button>
+            <h3 class="text-2xl font-extrabold mb-2">Welcome Back</h3>
+            <p class="text-slate-500 text-sm mb-6">Sign in to apply or manage projects.</p>
+            <form onsubmit="submitLogin(event)">
+                <input type="email" id="log-email" required placeholder="Email Address *" class="w-full mb-4 p-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                <input type="password" id="log-pass" required placeholder="Password *" class="w-full mb-6 p-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg shadow-md transition">Secure Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="modal-register" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-[450px] max-h-[90vh] overflow-y-auto modal-enter relative">
+            <button onclick="closeModal('modal-register')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">✕</button>
+            <h3 class="text-2xl font-extrabold mb-2">Create Account</h3>
+            <p class="text-slate-500 text-sm mb-6">All fields are compulsory to maintain platform quality.</p>
+            <form onsubmit="submitRegister(event)">
+                <input type="text" id="reg-name" required placeholder="Full Name *" class="w-full mb-4 p-3 bg-slate-50 border rounded-lg outline-none focus:ring-2 focus:ring-emerald-500">
+                <input type="email" id="reg-email" required placeholder="University Email *" class="w-full mb-4 p-3 bg-slate-50 border rounded-lg outline-none focus:ring-2 focus:ring-emerald-500">
+                <input type="password" id="reg-pass" required minlength="6" placeholder="Password (Min 6 chars) *" class="w-full mb-4 p-3 bg-slate-50 border rounded-lg outline-none focus:ring-2 focus:ring-emerald-500">
+                <div class="flex gap-4 mb-4">
+                    <input type="text" id="reg-dept" required placeholder="Department (e.g. CS) *" class="w-1/3 p-3 bg-slate-50 border rounded-lg outline-none focus:ring-2 focus:ring-emerald-500">
+                    <input type="text" id="reg-skills" required placeholder="Your Tech Skills *" class="w-2/3 p-3 bg-slate-50 border rounded-lg outline-none focus:ring-2 focus:ring-emerald-500">
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg shadow-md transition">Register Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Project Modal -->
+    <div id="modal-project" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-[500px] modal-enter relative">
+            <button onclick="closeModal('modal-project')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">✕</button>
+            <h3 class="text-2xl font-extrabold mb-2">Post a New Project</h3>
+            <p class="text-slate-500 text-sm mb-6">Describe your vision and the skills you need.</p>
+            <form onsubmit="submitProject(event)">
+                <input type="text" id="proj-title" required placeholder="Project Title *" class="w-full mb-4 p-3 bg-slate-50 border rounded-lg outline-none focus:ring-2 focus:ring-purple-500 font-bold">
+                <textarea id="proj-desc" required placeholder="Detailed Description (Compulsory) *" rows="4" class="w-full mb-4 p-3 bg-slate-50 border rounded-lg outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                <input type="text" id="proj-skills" required placeholder="Required Skills (Comma separated) *" class="w-full mb-6 p-3 bg-slate-50 border rounded-lg outline-none focus:ring-2 focus:ring-purple-500">
+                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-lg shadow-md transition">Publish to Marketplace</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // Phase 5: Fetch from Database
+        // --- CUSTOM TOAST NOTIFICATIONS (Professional UI) ---
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            const color = type === 'error' ? 'bg-rose-500' : 'bg-emerald-500';
+            toast.className = `${color} text-white px-6 py-3 rounded-xl shadow-lg transform transition-all duration-300 translate-y-10 opacity-0 font-medium flex items-center gap-2`;
+            toast.innerHTML = type === 'error' ? `⚠ ${message}` : `✓ ${message}`;
+            document.getElementById('toast-container').appendChild(toast);
+            
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // --- MODAL CONTROLS ---
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { 
+            document.getElementById(id).classList.add('hidden'); 
+            const forms = document.getElementById(id).querySelectorAll('form');
+            if(forms.length) forms[0].reset();
+        }
+
+        // --- AUTHENTICATION STATE ---
+        async function checkAuth() {
+            const res = await fetch('/api/me');
+            const data = await res.json();
+            const nav = document.getElementById('nav-buttons');
+            
+            if(data.logged_in) {
+                nav.innerHTML = `
+                    <div class="flex items-center gap-6">
+                        <span class="text-indigo-200 text-sm font-medium border-r border-indigo-700 pr-6 hidden md:block">Welcome, <span class="text-white font-bold">${data.name}</span></span>
+                        <a href="/dashboard.html" class="text-indigo-200 hover:text-white transition font-medium text-sm">Dashboard</a>
+                        <button onclick="openModal('modal-project')" class="bg-purple-600 hover:bg-purple-500 text-white px-5 py-2 rounded-lg text-sm font-bold shadow-md transition">Add Project</button>
+                        <button onclick="logout()" class="bg-indigo-950 hover:bg-indigo-800 text-indigo-200 hover:text-white px-5 py-2 rounded-lg text-sm font-bold transition">Logout</button>
+                    </div>
+                `;
+            } else {
+                nav.innerHTML = `
+                    <button onclick="openModal('modal-login')" class="text-indigo-200 hover:text-white font-medium px-4 transition text-sm">Login</button>
+                    <button onclick="openModal('modal-register')" class="bg-emerald-500 hover:bg-emerald-400 text-white px-6 py-2 rounded-lg text-sm font-bold shadow-md transition">Register</button>
+                `;
+            }
+        }
+
+        // --- API HOOKS ---
+        async function submitLogin(e) {
+            e.preventDefault();
+            const payload = { email: document.getElementById('log-email').value, password: document.getElementById('log-pass').value };
+            const res = await fetch('/login', { method: 'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if(res.ok) { closeModal('modal-login'); checkAuth(); showToast(data.message); }
+            else { showToast(data.error, 'error'); }
+        }
+
+        async function submitRegister(e) {
+            e.preventDefault();
+            const payload = {
+                name: document.getElementById('reg-name').value, email: document.getElementById('reg-email').value,
+                password: document.getElementById('reg-pass').value, department: document.getElementById('reg-dept').value,
+                skills: document.getElementById('reg-skills').value
+            };
+            const res = await fetch('/register', { method: 'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if(res.ok) { closeModal('modal-register'); showToast("Registration Complete! Please login."); }
+            else { showToast(data.error, 'error'); }
+        }
+
+        async function logout() {
+            await fetch('/logout', {method: 'POST'});
+            checkAuth(); showToast("Logged out successfully.");
+        }
+
+        async function submitProject(e) {
+            e.preventDefault();
+            const payload = {
+                title: document.getElementById('proj-title').value, description: document.getElementById('proj-desc').value, required_skills: document.getElementById('proj-skills').value
+            };
+            const res = await fetch('/api/projects', { method: 'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if(res.ok) { closeModal('modal-project'); fetchProjects(); showToast(data.message); }
+            else { showToast(data.error, 'error'); }
+        }
+
         async function fetchProjects(query = '') {
             const url = query ? `/api/projects?skill=${query}` : '/api/projects';
             const res = await fetch(url);
             const data = await res.json();
             const container = document.getElementById('projects-container');
-            container.innerHTML = ''; // Clear mock data
+            container.innerHTML = ''; 
             
-            if(data.length === 0) container.innerHTML = '<p class="text-gray-500">No projects found.</p>';
+            if(data.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center py-20"><div class="text-6xl mb-4">🔍</div><h3 class="text-xl font-bold text-slate-700">No projects found</h3><p class="text-slate-500">Try searching for a different skill.</p></div>';
+                return;
+            }
 
             data.forEach(p => {
+                const skillBadges = p.required_skills.split(',').map(s => `<span class="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-md border border-indigo-100">${s.trim()}</span>`).join('');
                 container.innerHTML += `
-                <div class="bg-white rounded-lg shadow-md p-6 border border-gray-100 hover:shadow-lg transition flex flex-col justify-between">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-xl font-bold mb-2">${p.title}</h3>
-                        <p class="text-gray-600 mb-4 h-20 overflow-hidden">${p.description}</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">${p.required_skills}</span>
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-extrabold text-slate-900 leading-tight">${p.title}</h3>
                         </div>
+                        <p class="text-xs text-slate-400 font-medium mb-4 uppercase tracking-wide">By ${p.creator_name}</p>
+                        <p class="text-slate-600 text-sm mb-6 leading-relaxed">${p.description}</p>
+                        <div class="flex flex-wrap gap-2 mb-6">${skillBadges}</div>
                     </div>
-                    <button onclick="applyForProject(${p.project_id})" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">Apply Now</button>
+                    <button onclick="applyForProject(${p.project_id})" class="w-full bg-slate-900 hover:bg-indigo-600 text-white font-bold py-3 rounded-xl shadow-md transition">Apply for Role</button>
                 </div>`;
             });
         }
 
-        // Phase 5: Apply to project hook
         async function applyForProject(projectId) {
-            const res = await fetch('/api/apply', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ project_id: projectId })
-            });
+            const res = await fetch('/api/apply', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ project_id: projectId }) });
             const data = await res.json();
-            alert(data.message || data.error);
+            if(res.ok) showToast(data.message);
+            else showToast(data.error, 'error');
         }
 
-        // Quick login for testing End-to-End
-        async function testLogin() {
-            const email = prompt("Enter User Email:");
-            const password = prompt("Enter Password:");
-            const res = await fetch('/login', {
-                method: 'POST', headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({email, password})
-            });
-            if(res.ok) alert("Logged in successfully! You can now apply.");
-            else alert("Login failed. Check database credentials.");
-        }
-
-        // Setup Search Filter Hook
+        // --- INIT ---
         document.getElementById('search-input').addEventListener('keyup', (e) => fetchProjects(e.target.value));
-
-        // Load DB projects on startup
+        checkAuth();
         fetchProjects();
     </script>
 </body>

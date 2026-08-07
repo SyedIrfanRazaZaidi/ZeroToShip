@@ -1,27 +1,33 @@
-# Peer Project Collaboration Platform - Final Build 🚀
+# CIS Hub: Peer Project Collaboration Platform 🚀
 
-**Developer:** Syed Irfan Raza  
-**Track:** Intermediate Track - ZeroToShip Summer Activity 2026  
-**Domain:** Database Management System  
+**Developer:** Syed Irfan Raza
+**Institution:** NED University of Engineering & Technology  
+**Track:** Intermediate Track : ZeroToShip Summer Activity 2026  
 
 ## 📖 Project Overview
-The Peer Project Collaboration Platform is a fully integrated digital workspace designed to connect university students across departments. It operates as a full-stack web application featuring secure user authentication, a live marketplace to discover open roles based on required skills, and a creator dashboard to manage incoming applications.
+The CIS Hub (Peer Project Collaboration Platform) is a full-stack digital workspace designed to eliminate departmental silos. It connects students who have innovative project ideas with peers who possess the specific technical skills needed to build them. This platform democratizes access to student talent, allowing users to effortlessly search for roles, apply for projects, and assemble cross-functional teams for real-world development.
 
 ## 🛠️ Technology Stack
 * **Frontend:** HTML5, Tailwind CSS, Vanilla JavaScript (Fetch API)
 * **Backend:** Python, Flask REST API
-* **Database & Auth:** SQLite3, Werkzeug Cryptography, Flask Sessions
+* **Database & Security:** SQLite3, Werkzeug Cryptography (Password Hashing), Flask Sessions
+* **Styling:** Custom UI Modals, Toast Notifications, and Inter typography
+
+## ✨ Core Features
+1. **Secure Authentication:** Complete user registration and login system with encrypted passwords and session management.
+2. **Discovery Marketplace:** A dynamic grid where project creators can publish open roles with required skill tags.
+3. **Real-Time Skill Filtering:** A search engine that instantly filters marketplace projects based on specific tech stack keywords (e.g., Python, React).
+4. **Application System:** One-click applications that securely send peer requests to project databases.
+5. **Creator Dashboard:** A dedicated management panel where project visionaries can review, approve, or reject incoming talent applications.
 
 ## 🚀 How to Run Locally
-1. Clone the repository and navigate into the folder.
-2. Activate your virtual environment: `.\venv\Scripts\activate` (Windows).
-3. Install dependencies: `pip install Flask werkzeug`.
-4. Run the database initialization: `py init_db.py`.
-5. Start the backend server: `py app.py`.
-6. Open your browser and navigate to `http://127.0.0.1:5000` to interact with the live application.
 
-## 🧪 Testing the Application (End-to-End)
-* **Register/Login:** Users must be registered directly in the DB or via a tool like Postman. Use the "Quick Login" button in the UI navbar to establish an active browser session.
-* **Skill Filtering:** Type "Python" or "React" into the Discovery Marketplace search bar to execute dynamic `GET` database filtering in real-time.
-* **Applying:** Click "Apply Now" on any card to fire a `POST` request to the database queue. 
-* **Managing:** Navigate to "My Dashboard" to execute an authenticated `GET` pull of live applications and test the Accept/Deny `PUT` hooks.
+### Prerequisites
+* Python 3.x installed
+* A virtual environment set up (`venv`)
+
+### Installation & Execution
+1. Clone this repository and navigate into the project directory.
+2. Activate your virtual environment:
+   ```bash
+   .\venv\Scripts\activate
